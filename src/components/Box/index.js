@@ -19,6 +19,7 @@ const Box = styled.div`
     color: #ffffff;
   }
   .subTitle {
+    color: #ffffff;
     font-size: 18px;
     font-weight: 400;
     margin-bottom: 20px;
@@ -39,18 +40,19 @@ const Box = styled.div`
   input {
     width: 100%;
     background-color: #F4F4F4;
-    color: #ffffff;
+    color: #000000;
     border: 0;
     padding: 14px 16px;
     margin-bottom: 14px;
     border-radius: 10000px;
     ::placeholder {
-      color: #ffffff;
+      color: #000000;
       opacity: 1;
     }
   }
   button {
-    border: 0;
+    border: 1;
+    border-color: #FFFFFF;
     padding: 8px 12px;
     color: #FFFFFF;
     border-radius: 10000px;
