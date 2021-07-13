@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: sans-serif;
-    background-color: #000000;
+    background-color: #212120;
   }
   #__next {
     display: flex;
