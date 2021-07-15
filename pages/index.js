@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
@@ -6,26 +5,49 @@ import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet 
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 
 function ProfileSidebar(propriedades) {
-  console.log(propriedades);
   return (
     <Box as="aside">
-    <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px' }} />
-    <hr />
+      <img src={`https://github.com/${propriedades.githubUser}.png`} style={{ borderRadius: '8px' }} />
+      <hr />
 
-    <p>
-      <a className="boxLink" href={`https://github.com/${propriedades.githubUser}`}>
-        @{propriedades.githubUser}
-      </a>
-    </p>
-    <hr />
+      <p>
+        <a className="boxLink" href={`https://github.com/${propriedades.githubUser}`}>
+          @{propriedades.githubUser}
+        </a>
+      </p>
+      <hr />
 
-    <AlurakutProfileSidebarMenuDefault />
-  </Box>
+      <AlurakutProfileSidebarMenuDefault />
+    </Box>
+  )
+}
+
+function ProfileRelationsBox(propriedades) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {propriedades.title} ({propriedades.items.length})
+      </h2>
+      
+      <ul>
+        {/*
+         {seguidores.map((itemAtual) => {
+          return (
+            <li key={itemAtual}>
+              <a href={`https://github.com/${itemAtual}.png`}>
+                <img src={itemAtual.image} />
+                <span>{itemAtual.title}</span>
+              </a>
+            </li>
+          )
+        })}*/}
+      </ul>
+    </ProfileRelationsBoxWrapper>
   )
 }
 
 export default function Home() {
-  const usuarioAleatorio = 'levysampaio';
+  const usuarioAleatorio = 'omariosouto';
   const [comunidades, setComunidades] = React.useState([{
     id: '12802378123789378912789789123896123', 
     title: 'Eu odeio acordar cedo',
@@ -33,11 +55,7 @@ export default function Home() {
   }]);
   // const comunidades = comunidades[0];
   // const alteradorDeComunidades/setComunidades = comunidades[1];
-
-  console.log('Nosso teste', );
   // const comunidades = ['Alurakut'];
-
-
   const pessoasFavoritas = [
     'juunegreiros',
     'omariosouto',
@@ -45,14 +63,28 @@ export default function Home() {
     'rafaballerini',
     'marcobrunodev',
     'felipefialho',
-    '123',
-    '12345'
   ]
+  const [seguidores, setSeguidores] = React.useState([]);
+  // 0 - Pegar o array de dados do github 
+  React.useEffect(function() {
+    fetch('https://api.github.com/users/peas/followers')
+    .then(function (respostaDoServidor) {
+      return respostaDoServidor.json();
+    })
+    .then(function(respostaCompleta) {
+      setSeguidores(respostaCompleta);
+    })
+  }, [])
+
+  console.log('seguidores antes do return', seguidores);
+
+  // 1 - Criar um box que vai ter um map, baseado nos items do array
+  // que pegamos do GitHub
 
   return (
     <>
-      <AlurakutMenu githubUser={usuarioAleatorio}/>
-      <MainGrid >
+      <AlurakutMenu />
+      <MainGrid>
         {/* <Box style="grid-area: profileArea;"> */}
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
           <ProfileSidebar githubUser={usuarioAleatorio} />
@@ -65,6 +97,7 @@ export default function Home() {
 
             <OrkutNostalgicIconSet />
           </Box>
+
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
             <form onSubmit={function handleCriaComunidade(e) {
@@ -98,21 +131,20 @@ export default function Home() {
                 />
               </div>
 
-              <button type="submit">
+              <button>
                 Criar comunidade
               </button>
             </form>
           </Box>
         </div>
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-        <ProfileRelationsBoxWrapper>
+          <ProfileRelationsBox title="Seguidores" items={seguidores} />
+          <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Comunidades ({comunidades.length})
             </h2>
             <ul>
-              
-              
-              {comunidades.slice(0, 6).map((itemAtual) => {
+              {comunidades.map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
                     <a href={`/users/${itemAtual.title}`}>
@@ -130,10 +162,10 @@ export default function Home() {
             </h2>
 
             <ul>
-              {pessoasFavoritas.slice(0, 6).map((itemAtual) => {
+              {pessoasFavoritas.map((itemAtual) => {
                 return (
-                  <li key ={itemAtual}>
-                    <a href={`/users/${itemAtual}`} key={itemAtual}>
+                  <li key={itemAtual}>
+                    <a href={`/users/${itemAtual}`}>
                       <img src={`https://github.com/${itemAtual}.png`} />
                       <span>{itemAtual}</span>
                     </a>

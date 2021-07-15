@@ -233,6 +233,9 @@ AlurakutProfileSidebarMenuDefault.Wrapper = styled.div`
       height: 16px;
       margin-right: 5px; 
     }
+    @media(min-width: 860px){
+      color: #ffffff;
+    }
   }
 `;
 
