@@ -182,16 +182,16 @@ export default function Home(props) {
               Seguidores ({seguidores.length})
             </h2>
             <ul>
-             { /*{comunidades.slice(0,6).map((itemAtual) => {
+             {seguidores.slice(0,6).map((itemAtual) => {
                 return (
-                  <li key={itemAtual.id}>
-                    <a href={`/communities/${itemAtual.id}`}>
-                      <img src={itemAtual.imageUrl} />
+                  <li key={itemAtual.id2}>
+                    <a href={`/seguidores/${itemAtual.id2}`}>
+                    <img src={`https://github.com/${itemAtual}.png`} />
                       <span>{itemAtual.title}</span>
                     </a>
                   </li>
                 )
-              })}*/}
+              })}
             </ul>
           </ProfileRelationsBoxWrapper>
           <ProfileRelationsBoxWrapper>
